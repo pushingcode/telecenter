@@ -5,9 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="panel">
-                <div class="panel-header">{{ __('Register') }}</div>
 
                 <div class="panel-body">
+
+                    <h4>{{ __('Registrar') }}</h4>
                     <form method="POST" action="/register">
                         @csrf
 

@@ -5,18 +5,19 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="panel">
-                <div class="panel-header">Cree un Nuevo Perfil</div>
 
                 <div class="panel-body">
 
-                    <form action="" method="POST">
+                    <h4>Cree un Nuevo Perfil</h4>
+
+                    <form action="/perfil" method="POST" enctype='multipart/form-data'>
                         @csrf
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Cargo') }}</label>
 
                             <div class="col-md-6">
-                                <input id="cargo" type="text" class="form-control{{ $errors->has('cargo') ? ' is-invalid' : '' }}" name="name" value="{{ old('cargo') }}" required autofocus>
+                                <input id="cargo" type="text" class="form-control{{ $errors->has('cargo') ? ' is-invalid' : '' }}" name="cargo" value="{{ old('cargo') }}" required autofocus>
 
                                 @if ($errors->has('cargo'))
                                     <span class="invalid-feedback">
@@ -31,7 +32,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Imagen') }}</label>
 
                             <div class="col-md-6">
-                                <input id="file" type="file" class="form-control{{ $errors->has('file') ? ' is-invalid' : '' }}" name="name" value="{{ old('file') }}" required autofocus>
+                                <input id="file" type="file" class="form-control{{ $errors->has('file') ? ' is-invalid' : '' }}" name="file" value="{{ old('file') }}" required autofocus>
 
                                 @if ($errors->has('file'))
                                     <span class="invalid-feedback">

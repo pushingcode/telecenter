@@ -29,7 +29,8 @@ class PerfilController extends Controller
             $viewPerfil = 'crear_perfil';
 
         }else{
-            $mensaje = 'succes*El perfi esta creado!!!';
+            $perfil = Perfil::where('user_id','=',$user)->get();
+            $mensaje = 'succes*El perfil esta creado!!!';
             $viewPerfil = 'actualizar_perfil';
         }
 
@@ -94,15 +95,17 @@ class PerfilController extends Controller
 
         $file_type = $request->file('file')->getClientOriginalExtension();
 
+        //dd($file_type);
+
         switch ($file_type) {
-            case 'xlsx':
+            case 'jpg':
                 $setType =  "jpg";
                 break;
-            case 'xls':
+            case 'png':
                 $setType = "png";
                 break;
 
-            case 'xml':
+            case 'gif':
                 $setType = "gif";
                 break;
             
@@ -125,7 +128,14 @@ class PerfilController extends Controller
             return \Redirect::back()->withErrors($mensaje);
         }
 
-        $path = $request->file('file')->store('photos/'.$control, 'local');
+        $path = $request->file('file')->store('public/photos/'.$control, 'local');
+        
+        /**
+         * Ajustando la direccion del recurso
+         * Se elimina de la url la parte publica
+         */
+        $path = explode("/", $path);
+        $path = $path[1]."/".$path[2]."/".$path[3];
 
         /**
          * Salvando el nuevo perfil
@@ -140,6 +150,9 @@ class PerfilController extends Controller
         $perfil->hash          = $file_hash;
 
         $perfil->save();
+
+        $mensaje = 'succes*Perfil Creado';
+        return \Redirect::back()->withErrors($mensaje);
 
     }
 
