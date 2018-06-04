@@ -60,6 +60,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
+
 <body class="hold-transition skin-black sidebar-mini">
 <div class="wrapper">
 
@@ -107,9 +108,10 @@ desired effect
                 <img src="{{asset('adminlte/dist/img/avatar5.png')}}" class="img-circle" alt="User Image">
 
                 <p>
-                  {{ Auth::user()->name }} - Web Developer
+                  {{ Auth::user()->name }} - 
                   <small>Desde {{ Auth::user()->created_at }}</small>
                 </p>
+                
               </li>
               <!-- Menu Body -->
               <li class="user-body">
@@ -416,4 +418,5 @@ desired effect
 <!-- page script -->
 
 </body>
+@endforeach
 </html>

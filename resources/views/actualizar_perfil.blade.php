@@ -1,7 +1,6 @@
 @extends('admin.admin')
 
 @section('content')
-@foreach($perfil as $miperfil)
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -95,5 +94,4 @@
         </div>
     </div>
 </div>
-@endforeach
 @endsection

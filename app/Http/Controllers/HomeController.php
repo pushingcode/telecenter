@@ -23,7 +23,23 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user = Auth::id();
+
+        $perfil = Perfil::find($user);
+
+        if($perfil == null){
+
+            $mensaje    = 'danger*El perfi no existe!!!';
+            $viewPerfil = 'crear_perfil';
+
+        }else{
+            $perfil     = Perfil::where('user_id','=',$user)->get();
+            $mensaje    = 'succes*El perfil esta creado!!!';
+            $viewPerfil = 'actualizar_perfil';
+        }
+
         return view('home')->with([
+            'perfil'    => $perfil,
             'header'    => "Estadisticas"
             ]);
     }
