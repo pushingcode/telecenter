@@ -74,7 +74,18 @@ class QueryController extends Controller
         /*
         return \Redirect::back();
         */
-        return view('result')
+
+        /**
+         * determinando la salida de la consulta
+         * 'result'
+         */
+        if($request->from == 'admin'){
+            $vista = 'result';
+        }else{
+            $vista = 'result2';
+        }
+
+        return view($vista)
         ->with([
         	'query'		=> $query,
         	'header'	=> "Consulta de contrato ". $request->n_contrato,

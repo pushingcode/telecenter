@@ -174,6 +174,7 @@ desired effect
       {{ csrf_field() }}
         <div class="input-group">
           <input type="text" id="n_contrato" name="n_contrato" class="form-control" placeholder="Search...">
+          <input type="hidden" name="from" value="admin">
           <span class="input-group-btn">
               <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
               </button>
@@ -247,7 +248,7 @@ desired effect
         @isset($header)
         	{{$header}}
         @else
-			Cabecera
+			
         @endisset
       </h1>
       <ol class="breadcrumb">
@@ -418,5 +419,4 @@ desired effect
 <!-- page script -->
 
 </body>
-@endforeach
 </html>

@@ -5,12 +5,25 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
-        <link rel="stylesheet" href="{{asset('bootstrap/dist/css/bootstrap.css')}}">
+        <title>Sistema de Gestion de Garantias</title>
 
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="stylesheet" href="{{asset('adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
+          <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{asset('adminlte/bower_components/font-awesome/css/font-awesome.min.css')}}">
+          <!-- Ionicons -->
+        <link rel="stylesheet" href="{{asset('adminlte/bower_components/Ionicons/css/ionicons.min.css')}}">
+          <!-- Theme style -->
+        <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
+          <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+                page. However, you can choose any other skin. Make sure you
+                apply the skin class to the body tag so the changes take effect. -->
+        <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-black.min.css')}}">
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+            <div class="container">
+
+            <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -30,21 +43,63 @@
                 </div>
 
             @endif
-            <!--
-            Form de consultas para el operador
-            -->
+            <br><br>
+                <!--
+                Form de consultas para el operador
+                -->
 
-            <div class="panel">
-                <div class="panel"></div>
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Consulta de Contrato</h3>
+                  </div>
+                  <div class="panel-body">
+
+                    <form action="/search" method="POST" class="form-horizontal">
+                    {{ csrf_field() }}
+                      <!--<div class="form-group">
+                        <label for="inputID" class="col-sm-2 control-label">No. Telefono o Email</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputID" placeholder="Telefono / Email">
+                        </div>
+                      </div> -->
+                      <div class="form-group">
+                        <label for="n_contrato" class="col-sm-2 control-label">No. de Contrato</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="n_contrato" name="n_contrato" placeholder="Contrato">
+                          <input type="hidden" name="from" value="frontend">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button type="submit" class="btn btn-default">Consultar</button>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+
+                <!--
+                Form de consultas para el operador
+                -->
             </div>
-
-            <!--
-            Form de consultas para el operador
-            -->
+            
         </div>
-         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-         <script href="{{asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>
-         <script href="{{asset('bootstrap/dist/js/custom.js')}}"></script>
+         <!-- jQuery 3 -->
+        <script src="{{asset('adminlte/bower_components/jquery/dist/jquery.min.js')}}"></script>
+        <!-- Bootstrap 3.3.7 -->
+        <script src="{{asset('adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+        <!-- AdminLTE App -->
+        <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
+
+        <script src="{{asset('adminlte/bower_components/jquery-knob/js/jquery.knob.js')}}"></script>
+
+        <!-- Optionally, you can add Slimscroll and FastClick plugins.
+             Both of these plugins are recommended to enhance the
+             user experience. -->
+
+        <!-- page script -->
+
+        <!-- page script -->
     </body>
 </html>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Manager;
+use App\Services;
 use Illuminate\Http\Request;
 use Storage;
 use Carbon;
@@ -253,7 +254,22 @@ class ManagerController extends Controller
             $myRows[] = $myCells;
         }
 
-        /*
+        /**
+         * Validacion de numero de orden preexistente en la bd
+         */
+
+        foreach ($myRows as $key => $value) {
+
+          $validaOrden = Services::where('Numero_Orden','=',$value["Numero_Orden"]);
+                        
+          if ($manager->exists() == true) {
+              $mensaje = 'warning*El archivo posee informacion ya registrada, para evitar dupicidad se aborta la operacion';
+
+              return \Redirect::back()->withErrors($mensaje);
+          }
+        }
+
+        /**
          * Carga en la BD
          */
 

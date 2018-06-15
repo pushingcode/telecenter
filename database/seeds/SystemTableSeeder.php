@@ -101,6 +101,10 @@ class RolesAndPermissionsSeeder extends Seeder
         
         $user->assignRole('admin');
 
+        $user = \App\User::find(3);
+        
+        $user->assignRole('tecnico');
+
         //$role = Role::create(['name' => 'admin']);
         //$role->givePermissionTo(['publish articles', 'unpublish articles']);
     }

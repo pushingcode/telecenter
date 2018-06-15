@@ -40,6 +40,11 @@ class UsersTableSeeder extends Seeder
                 'email'     => 'phpunit1@gmail.com',
                 'password'  => bcrypt('123456')
                 ),
+        'usuario3' => array(
+                'user'      => 'tecnicos',
+                'email'     => 'phpunit2@gmail.com',
+                'password'  => bcrypt('123456')
+                ),
         ];
 
         foreach ($users as $value) {

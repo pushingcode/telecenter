@@ -20,7 +20,7 @@ Route::get('/', function () {
 |--------------------------------------------
 */
 
-Route::get('check_disk','ManagerController@checkDisk');
+
 
 Auth::routes();
 
@@ -30,6 +30,7 @@ Route::resources([
 	'perfil'		=> 'PerfilController'
 	]);
 
+Route::get('check_disk','ManagerController@checkDisk');
 Route::post('/search', 'QueryController@byTime');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/register', 'HomeController@register')->name('register');
