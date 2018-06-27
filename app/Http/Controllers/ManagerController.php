@@ -261,8 +261,10 @@ class ManagerController extends Controller
         foreach ($myRows as $key => $value) {
 
           $validaOrden = Services::where('Numero_Orden','=',$value["Numero_Orden"]);
+
+          //dd($validaOrden);
                         
-          if ($manager->exists() == true) {
+          if ($validaOrden->exists() == true) {
               $mensaje = 'warning*El archivo posee informacion ya registrada, para evitar dupicidad se aborta la operacion';
 
               return \Redirect::back()->withErrors($mensaje);
