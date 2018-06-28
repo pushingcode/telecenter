@@ -24,7 +24,7 @@ class QueryController extends Controller
     public function byTime(Request $request)
     {
     	$user = Auth::id();
-    	$rango = 9; //cantidad de meses como rango de consulta
+    	$rango = 12; //cantidad de meses como rango de consulta
 
     	//validando inputs
 
@@ -61,13 +61,13 @@ class QueryController extends Controller
         	->orderBy('fecha', 'desc')
         	->get();
 
-
-        $mensaje = "success*Consulta ejecutada";
+           // dd($request->n_contrato, $inicio, $time);
+        $mensaje = "success*Consulta ejecutada en un rango de " . $rango . " meses";
 
         if(count($query) == 0){
-        	$mensaje = "info*No existen resultados para la consulta";
+        	$mensaje = "info*No existen resultados para la consulta en un rango de " . $rango . " meses";
         	return \Redirect::back()
-        	->with(['header' => "Resultado de Consulta ". $request->n_contrato])
+        	->with(['header' => "Resultado de Consulta ". $request->n_contrato] ." en un rango de " . $rango . " meses")
         	->withErrors($mensaje);
         }
 
