@@ -37,9 +37,9 @@
                 @php
                     $flashData = explode("*",$errors->first());
                 @endphp
-                <div class="alert alert-{{$flashData[0]}} alert-dismissible" role="alert">
+                <div class="alert alert-{{ $flashData[0] }} alert-dismissible" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <strong>Atencion!</strong> <h4>{{$flashData[1]}}</h4>
+                  <strong>Atencion!</strong> <h4>{{ $flashData[1] }}</h4>
                 </div>
 
             @endif
@@ -50,7 +50,7 @@
 
                 <div class="panel panel-primary">
                   <div class="panel-heading">
-                    <h3 class="panel-title">Consulta de Contrato</h3>
+                    <h3 class="panel-title">Consulta Numero de Cliente</h3>
                   </div>
                   <div class="panel-body">
 
@@ -63,7 +63,7 @@
                         </div>
                       </div> -->
                       <div class="form-group">
-                        <label for="n_contrato" class="col-sm-2 control-label">No. de Contrato</label>
+                        <label for="n_contrato" class="col-sm-2 control-label">No. de Cliente</label>
                         <div class="col-sm-10">
                           <input type="text" class="form-control" id="n_contrato" name="n_contrato" placeholder="Contrato">
                           <input type="hidden" name="from" value="frontend">

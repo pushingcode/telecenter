@@ -47,6 +47,16 @@ class QueryController extends Controller
 
     	//validando permisos por rol
 
+        $preQuery = \DB::table('services')
+                ->where("Numero_Cuenta", "=", $request->n_contrato)
+                ->get();
+        if(count($preQuery) == 0){
+            $mensaje = "info*No existen resultados para la consulta";
+            return view('error')
+            ->with(['header' => "Sin Resultado en la Consulta ". $request->n_contrato])
+            ->withErrors($mensaje);
+        }
+
         $control = time();
         $time = Carbon\Carbon::createFromTimestamp($control)->toDateTimeString();
         $start = microtime(true);
