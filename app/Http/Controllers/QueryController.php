@@ -33,8 +33,8 @@ class QueryController extends Controller
     					  ];
 
     	$mensajes	 	= [
-    						'n_contrato.required'	=> 'El Numero de contrato es obligatorio.',
-    					   	'n_contrato.digits'		=> 'El numero de contrato no es valido'
+    						'n_contrato.required'	=> 'info*El Numero de cliente es obligatorio.',
+    					   	'n_contrato.digits'		=> 'info*El numero de cliente no es valido'
     					  ];
 
     	$validator 		= \Validator::make($request->all(),$reglas,$mensajes);
