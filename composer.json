@@ -48,13 +48,6 @@
         "post-create-project-cmd": [
             "@php artisan key:generate"
         ],
-        "post-update-cmd": [
-            "mkdir -p public/bootstrap",
-            "cp -R vendor/twbs/bootstrap/dist/ public/bootstrap/",
-            "mkdir -p public/adminlte",
-            "cp -R vendor/almasaeed2010/adminlte/dist/ public/adminlte/",
-            "cp -R vendor/almasaeed2010/adminlte/bower_components/ public/adminlte/"
-        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
