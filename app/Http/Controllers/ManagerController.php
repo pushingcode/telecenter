@@ -46,7 +46,7 @@ class ManagerController extends Controller
         $user = Auth::id();
         $control = time();
         $time = Carbon\Carbon::createFromTimestamp($control)->toDateTimeString();
-        $start = microtime(true); 
+        $start = microtime(true);
 
         $cabecera = array(
             "Tecnico",
@@ -119,7 +119,7 @@ class ManagerController extends Controller
                           ];
 
         $validator      = \Validator::make($request->all(),$reglas,$mensajes);
-        
+
         if ($validator->fails()) {
             return \Redirect::back()
                         ->withErrors($validator)
@@ -147,7 +147,7 @@ class ManagerController extends Controller
             case 'ods':
                 $setType = "Ods";
                 break;
-            
+
             default:
 
                 //el archivo es una extension invalida sale con aviso al home
@@ -156,7 +156,11 @@ class ManagerController extends Controller
 
                 break;
         }
-        
+
+        /**
+        * Inicio de validacion de archivo exista en el sistema
+        *
+        */
 
         $file_hash = md5_file($request->file('file')->getRealPath());
 
@@ -170,19 +174,10 @@ class ManagerController extends Controller
 
         $path = $request->file('file')->store('files/'.$control, 'local');
 
-        
-    
-        Storage::put('manifest.txt', $path);
-
-        $manager = new Manager;
-
-        $manager->user_id       = $user;
-        $manager->manifest      = $path;
-        $manager->last_modified = $time;
-        $manager->hash          = $file_hash;
-
-        $manager->save();
-
+        /**
+        * Fin de validacion de archivo exista en el sistema
+        *
+        */
 
         /*
          * Gestion de archivo y carga en la BD
@@ -192,9 +187,10 @@ class ManagerController extends Controller
          * El campo Tecnico es limpiado de la siguiente expresion ("<!->")
          * El campo Numero_Orden con valores NULL es excluido de la pila de consultas de incersion
          * La prueba de esfuerzo hasta el momento de 200 registros con 20MB de memoria asignados en PHP.INI
+         * La prueba de esfuerzo hasta el 30/06/2018 de 200 registros con 1024MB de memoria asignados en PHP.INI
          */
 
-        
+
 
         /*
          * Instancia de lector de excel
@@ -235,7 +231,7 @@ class ManagerController extends Controller
                         $myCells[$cabecera[$x]] = $myFecha;
 
                         break;
-                    
+
                     default:
 
                         $myCells[$cabecera[$x]] = $cell->getValue();
@@ -250,7 +246,7 @@ class ManagerController extends Controller
             //Cada Fila de Excel
 
             //falta excluir los valores null en el campo numero
-           
+
             $myRows[] = $myCells;
         }
 
@@ -263,7 +259,7 @@ class ManagerController extends Controller
           $validaOrden = Services::where('Numero_Orden','=',$value["Numero_Orden"]);
 
           //dd($validaOrden);
-                        
+
           if ($validaOrden->exists() == true) {
               $mensaje = 'warning*El archivo posee informacion ya registrada, para evitar dupicidad se aborta la operacion';
 
@@ -277,20 +273,39 @@ class ManagerController extends Controller
 
         foreach ($myRows as $myKey => $myRow) {
 
-            $myRow += ['source'=>$path]; 
+            $myRow += ['source'=>$path];
 
             if($myRow["Numero_Orden"] == null){
 
             }else{
 
                 $op[] = \DB::table('services')->insert([$myRow]);
-                
+
             }
 
         }
 
         /*
          **FIN**
+         */
+
+         /**
+         * Inicio manejo del archivo al disco local
+         */
+
+         Storage::put('manifest.txt', $path);
+
+         $manager = new Manager;
+
+         $manager->user_id       = $user;
+         $manager->manifest      = $path;
+         $manager->last_modified = $time;
+         $manager->hash          = $file_hash;
+
+         $manager->save();
+
+         /**
+         * Fin manejo del archivo al disco local
          */
 
         /*estadisticas*/
@@ -402,7 +417,7 @@ class ManagerController extends Controller
                     $mensaje = 'success*Disco '.$disk.' OK!!!';
                 }
             }
-            
+
         }
 
         //return \Redirect::back()->withErrors($mensaje);
@@ -434,11 +449,11 @@ class ManagerController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        
+
         /*
         * registro de usuario *
         */
-        
+
         $timer = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
 
         $id = \DB::table('users')
@@ -455,7 +470,7 @@ class ManagerController extends Controller
         */
 
         $user = \App\User::find($id);
-        
+
         $user->assignRole('admin');
 
         $mensaje = 'success*Nuevo usuario creado!!!';
