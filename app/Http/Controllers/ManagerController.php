@@ -21,6 +21,51 @@ class ManagerController extends Controller
     public function index()
     {
         //
+        /**
+        * Listamos todos los elementos que estan en la tabla Manager
+        * Se valida que el recurso existe en el disco y que esta disponible -
+        * para descarga
+        */
+
+        // TODO:
+        // Contador de descargas para el recurso
+        // Agregar el tipo de archivo que esta guardado
+
+        /**
+        * Consulta de tabla Manager
+        */
+
+        $recursos = Manager::all();
+
+        //Segun la cantidad enviamos a una vista con paginacion de > a 15
+        $cantidad = $recursos->count();
+
+        //buscamos en la tabla servicio para obtener una referencia de los Datos
+        //que existen en el archivo a descargar
+        foreach ($recursos as $recurso) {
+          $RefInicio[$recurso->id] = Services::where('source', $recurso->manifest)->first()->Fecha;
+          $RefFinal[$recurso->id] = Services::where('source', $recurso->manifest)->orderBy('id', 'desc')->first()->Fecha;
+        }
+
+        /*dd(
+          $recursos,
+          $cantidad,
+          $RefInicio,
+          $RefFinal
+        );*/
+
+        if ($cantidad > 15) {
+          $vista = 'archivos';
+        }else{
+          $vista = 'archivo';
+        }
+
+        return view($vista)->with([
+            'recursos'  => $recursos,
+            'header'    => "Descarga de Archivo de Servicio",
+            'inicio'    => $RefInicio,
+            'fin'       => $RefFinal
+            ]);
     }
 
     /**
@@ -480,5 +525,23 @@ class ManagerController extends Controller
                         'header'=>"Creacion de Usuarios"
                         ])
                 ->withErrors($mensaje);
+    }
+
+    /**
+     * donwload the specified resource from storage.
+     *
+     * @param  \App\Manager  $manager
+     * @return \Illuminate\Http\Response
+     */
+    public function donwload(Manager $id)
+    {
+        //
+        if($id->count() == 0){
+          $mensaje = 'info*El recurso solicitado no existe!!!';
+          return \Redirect::back()
+                      ->withErrors($mensaje);
+        }
+
+          return Storage::download($id->manifest,'EpicaNero'.$id->created_at.'['.$id->id.'].xlsx');
     }
 }

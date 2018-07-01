@@ -35,4 +35,5 @@ Route::post('/search', 'QueryController@byTime');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/register', 'HomeController@register')->name('register');
 Route::post('/register', 'ManagerController@user_register');
+Route::get('donwload/{id}', 'ManagerController@donwload')->name('donwload');
 //Route::view('/home', 'admin.admin');

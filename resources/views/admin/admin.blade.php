@@ -89,9 +89,9 @@ desired effect
           <!-- /.messages-menu -->
 
           <!-- Notifications Menu -->
-          
+
           <!-- Tasks Menu -->
-          
+
                   <!-- end task item -->
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
@@ -108,10 +108,10 @@ desired effect
                 <img src="{{asset('adminlte/dist/img/avatar5.png')}}" class="img-circle" alt="User Image">
 
                 <p>
-                  {{ Auth::user()->name }} - 
+                  {{ Auth::user()->name }} -
                   <small>Desde {{ Auth::user()->created_at }}</small>
                 </p>
-                
+
               </li>
               <!-- Menu Body -->
               <li class="user-body">
@@ -200,7 +200,7 @@ desired effect
           </a>
           <ul class="treeview-menu">
             <li><a href="/manager/create">Carga</a></li>
-            <li><a href="/operador">Descarga</a></li>
+            <li><a href="/manager">Descarga</a></li>
           </ul>
         </li>
         @endhasanyrole
@@ -248,7 +248,7 @@ desired effect
         @isset($header)
         	{{$header}}
         @else
-			
+
         @endisset
       </h1>
       <ol class="breadcrumb">
