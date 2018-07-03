@@ -24,7 +24,7 @@ class QueryController extends Controller
     public function byTime(Request $request)
     {
     	$user = Auth::id();
-    	$rango = 12; //cantidad de meses como rango de consulta
+    	$rango = 6; //cantidad de meses como rango de consulta
 
     	//validando inputs
 
@@ -38,7 +38,7 @@ class QueryController extends Controller
     					  ];
 
     	$validator 		= \Validator::make($request->all(),$reglas,$mensajes);
-        
+
         if ($validator->fails()) {
             return \Redirect::back()
                         ->withErrors($validator)
@@ -105,6 +105,6 @@ class QueryController extends Controller
         	'mensaje'	=> $mensaje
         	]);
 
-        
+
     }
 }
