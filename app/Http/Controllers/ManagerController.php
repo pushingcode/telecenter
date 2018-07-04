@@ -301,12 +301,17 @@ class ManagerController extends Controller
 
         foreach ($myRows as $key => $value) {
 
-          $validaOrden = Services::where('Numero_Orden','=',$value["Numero_Orden"]);
+          //$validaOrden = Services::where('Numero_Orden','=',$value["Numero_Orden"]);
+
+          $validaOrden = Services::where([
+              ['Numero_Orden','=',$value["Numero_Orden"]],
+              ['Estado','=','Completado']
+            ]);
 
           //dd($validaOrden);
 
           if ($validaOrden->exists() == true) {
-              $mensaje = 'warning*El archivo posee informacion ya registrada, para evitar dupicidad se aborta la operacion';
+              $mensaje = 'warning*El archivo posee informacion ya registrada, para evitar duplicidad se aborta la operacion';
 
               return \Redirect::back()->withErrors($mensaje);
           }
