@@ -77,7 +77,7 @@ class QueryController extends Controller
         if(count($query) == 0){
         	$mensaje = "info*No existen resultados para la consulta en un rango de " . $rango . " meses";
         	return \Redirect::back()
-        	->with(['header' => "Resultado de Consulta ". $request->n_contrato] ." en un rango de " . $rango . " meses")
+        	->with(['header' => "Resultado de Consulta ". $request->n_contrato ." en un rango de " . $rango . " meses"])
         	->withErrors($mensaje);
         }
 
