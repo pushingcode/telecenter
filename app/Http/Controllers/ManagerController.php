@@ -253,7 +253,7 @@ class ManagerController extends Controller
         $data = $reader->load($request->file('file'));
 
         $dataSheet = $data->getActiveSheet();
-
+        dd($dataSheet);
         foreach ($dataSheet->getRowIterator() as $row) {
 
             $cellIterator = $row->getCellIterator();
@@ -328,7 +328,7 @@ class ManagerController extends Controller
 
         foreach ($myRows as $myKey => $myRow) {
 
-            $myRow += ['source'=>$path];
+            $myRow += ['source'=>null];
 
             if($myRow["Numero_Orden"] == null){
 
@@ -348,6 +348,8 @@ class ManagerController extends Controller
          * Inicio manejo del archivo al disco local
          */
 
+         $path = $request->file('file')->store('files/'.$control, 'local');
+
          Storage::put('manifest.txt', $path);
 
          $manager = new Manager;
@@ -358,8 +360,6 @@ class ManagerController extends Controller
          $manager->hash          = $file_hash;
 
          $manager->save();
-
-         $path = $request->file('file')->store('files/'.$control, 'local');
 
          /**
          * Fin manejo del archivo al disco local
