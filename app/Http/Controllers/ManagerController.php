@@ -40,6 +40,13 @@ class ManagerController extends Controller
         //Segun la cantidad enviamos a una vista con paginacion de > a 15
         $cantidad = $recursos->count();
 
+        if ($cantidad == 0) {
+          $mensaje = 'info*No existen archivos para descarga';
+          return \Redirect::back()
+                      ->withErrors($mensaje);
+        }
+
+
         //buscamos en la tabla servicio para obtener una referencia de los Datos
         //que existen en el archivo a descargar
         foreach ($recursos as $recurso) {
