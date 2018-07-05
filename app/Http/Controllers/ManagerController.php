@@ -217,8 +217,6 @@ class ManagerController extends Controller
             return \Redirect::back()->withErrors($mensaje);
         }
 
-        $path = $request->file('file')->store('files/'.$control, 'local');
-
         /**
         * Fin de validacion de archivo exista en el sistema
         *
@@ -353,6 +351,8 @@ class ManagerController extends Controller
          $manager->hash          = $file_hash;
 
          $manager->save();
+
+         $path = $request->file('file')->store('files/'.$control, 'local');
 
          /**
          * Fin manejo del archivo al disco local
