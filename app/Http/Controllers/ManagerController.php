@@ -253,7 +253,7 @@ class ManagerController extends Controller
         $data = $reader->load($request->file('file'));
 
         $dataSheet = $data->getActiveSheet();
-        dd($dataSheet);
+        
         foreach ($dataSheet->getRowIterator() as $row) {
 
             $cellIterator = $row->getCellIterator();
