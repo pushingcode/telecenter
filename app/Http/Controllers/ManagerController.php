@@ -253,7 +253,7 @@ class ManagerController extends Controller
         $data = $reader->load($request->file('file'));
 
         $dataSheet = $data->getActiveSheet();
-        
+
         foreach ($dataSheet->getRowIterator() as $row) {
 
             $cellIterator = $row->getCellIterator();
@@ -328,12 +328,12 @@ class ManagerController extends Controller
 
         foreach ($myRows as $myKey => $myRow) {
 
-            $myRow += ['source'=>null];
+            $myRow += ['source'=>NULL];
 
             if($myRow["Numero_Orden"] == null){
 
             }else{
-
+              
                 $op[] = \DB::table('services')->insert([$myRow]);
 
             }
