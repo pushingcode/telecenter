@@ -268,17 +268,31 @@ class ManagerController extends Controller
 
                     case 'Tecnico':
 
-                        $cell = str_replace($clearString, "", $cell->getValue());
+                        if($cell->getValue() == "Técnico"){
 
-                        $myCells[$cabecera[$x]] = $cell;
+                          $myCells[$cabecera[$x]] = $cell->getValue();
+                          
+                        }else{
+
+                          $cell = str_replace($clearString, "", $cell->getValue());
+
+                          $myCells[$cabecera[$x]] = $cell;
+                        }
 
                         break;
 
                     case 'Fecha':
 
-                        $myFecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($cell->getValue());
+                        if($cell->getValue() == "Fecha"){
 
-                        $myCells[$cabecera[$x]] = $myFecha;
+                          $myCells[$cabecera[$x]] = $cell->getValue();
+
+                        }else{
+
+                          $myFecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($cell->getValue());
+
+                          $myCells[$cabecera[$x]] = $myFecha;
+                        }
 
                         break;
 
@@ -326,11 +340,16 @@ class ManagerController extends Controller
          * Carga en la BD
          */
 
+        $timer  = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+        $path   = $request->file('file')->store('files/'.$control, 'local');
+
         foreach ($myRows as $myKey => $myRow) {
 
-            $myRow += ['source'=>NULL];
+            $myRow += ['source'     => $path];
+            $myRow += ['created_at' => $timer];
+            $myRow += ['updated_at' => $timer];
 
-            if($myRow["Numero_Orden"] == null){
+            if($myRow["Numero_Orden"] == null || $myRow["Fecha"] == "Fecha"){
 
             }else{
               
@@ -348,7 +367,7 @@ class ManagerController extends Controller
          * Inicio manejo del archivo al disco local
          */
 
-         $path = $request->file('file')->store('files/'.$control, 'local');
+         
 
          Storage::put('manifest.txt', $path);
 
