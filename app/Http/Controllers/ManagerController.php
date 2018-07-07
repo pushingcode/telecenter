@@ -100,6 +100,14 @@ class ManagerController extends Controller
         $time = Carbon\Carbon::createFromTimestamp($control)->toDateTimeString();
         $start = microtime(true);
 
+        /**
+        * Se agregan los campos dataMiss{x} para evitar errores OffSet en el
+        * recorrido de lectura de la libreria PhpSpreadsheet
+        *-----------------------------------------------------------------------
+        * es necesario crear la migracion para modificar la tabla service para
+        * produccion
+        */
+
         $cabecera = array(
             "Tecnico",
             "Numero_Orden",
@@ -144,7 +152,10 @@ class ManagerController extends Controller
             "Razon_Suspension",
             "Estado_coordenadas",
             "ID_recurso",
-            "dataMiss"
+            "dataMiss",
+            "dataMiss1",
+            "dataMiss2",
+            "dataMiss3"
         );
 
         $clearString = array("<","!","-",">");
@@ -271,7 +282,7 @@ class ManagerController extends Controller
                         if($cell->getValue() == "Técnico"){
 
                           $myCells[$cabecera[$x]] = $cell->getValue();
-                          
+
                         }else{
 
                           $cell = str_replace($clearString, "", $cell->getValue());
@@ -352,7 +363,7 @@ class ManagerController extends Controller
             if($myRow["Numero_Orden"] == null || $myRow["Fecha"] == "Fecha"){
 
             }else{
-              
+
                 $op[] = \DB::table('services')->insert([$myRow]);
 
             }
@@ -367,7 +378,7 @@ class ManagerController extends Controller
          * Inicio manejo del archivo al disco local
          */
 
-         
+
 
          Storage::put('manifest.txt', $path);
 
