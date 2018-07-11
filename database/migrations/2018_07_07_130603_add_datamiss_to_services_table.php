@@ -15,6 +15,7 @@ class AddDatamissToServicesTable extends Migration
     {
         Schema::table('services', function (Blueprint $table) {
             //
+            $table->text('dataMiss4')->nullable()->after('dataMiss');
             $table->text('dataMiss3')->nullable()->after('dataMiss');
             $table->string('dataMiss2')->nullable()->after('dataMiss');
             $table->string('dataMiss1')->nullable()->after('dataMiss');

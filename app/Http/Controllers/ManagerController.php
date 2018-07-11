@@ -155,7 +155,8 @@ class ManagerController extends Controller
             "dataMiss",
             "dataMiss1",
             "dataMiss2",
-            "dataMiss3"
+            "dataMiss3",
+            "dataMiss4"
         );
 
         $clearString = array("<","!","-",">");
@@ -300,9 +301,26 @@ class ManagerController extends Controller
 
                         }else{
 
-                          $myFecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($cell->getValue());
+                          /*Verificando la longitud de la fecha para determinar si es manipulada*/
 
-                          $myCells[$cabecera[$x]] = $myFecha;
+                          if ( strlen( $cell->getValue() ) == 8) { //longitud de cadena DD/MM/YY
+
+                            $myFecha = explode("/", $cell->getValue());
+
+                            $myCells[$cabecera[$x]] = "20".$myFecha[2]."-".$myFecha[1]."-".$myFecha[0];// falta verificar
+
+                          } elseif ( strlen( $cell->getValue() ) > 10) { //longitud del valor de fecha en Excel
+
+                            $myFecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($cell->getValue());
+
+                            $myCells[$cabecera[$x]] = $myFecha;
+
+                          }
+
+
+                          /*$myFecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($cell->getValue());
+                          $myCells[$cabecera[$x]] = $myFecha;*/
+
                         }
 
                         break;
