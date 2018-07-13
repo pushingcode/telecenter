@@ -307,7 +307,7 @@ class ManagerController extends Controller
 
                             $myFecha = explode("/", $cell->getValue());
 
-                            $myCells[$cabecera[$x]] = "20".$myFecha[2]."-".$myFecha[1]."-".$myFecha[0];// falta verificar
+                            $myCells[$cabecera[$x]] = "20".$myFecha[2]."-".$myFecha[1]."-".$myFecha[0];// a fecha mysql
 
                           } elseif ( strlen( $cell->getValue() ) > 10) { //longitud del valor de fecha en Excel
 

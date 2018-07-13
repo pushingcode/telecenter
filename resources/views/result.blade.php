@@ -13,7 +13,14 @@
             <h6 class="panel-subtitle mb-2 text-muted">Abonado: {{$result->Nombre}}</h6>
             <span class="label label-primary">Orden: {{$result->Numero_Orden}}</span>
             <span class="label label-primary">{{$result->SubTipo_Orden}}</span>
-            <span class="label label-success">{{$result->Estado}}</span>
+            @php
+              if($result->Estado == "Completado"){
+                $label = "success";
+              } else {
+                $label = "warning";
+              }
+            @endphp
+            <span class="label label-{{$label}}">{{$result->Estado}}</span>
             <p class="panel-text">Comentario Ultima Orden: <br> {{$result->Notas_Entrantes}}</p>
             <p class="panel-text">Tecnico: <br> {{$result->Tecnico}}</p>
             <a href="#" class="panel-link">Ultima Visita: {{$result->Fecha}}</a>
