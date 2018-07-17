@@ -271,14 +271,14 @@ desired effect
 
             if($type_error === false){
 
-                echo "<div class='container'><div class='row'><div class='col-xs-10'><div class='alert alert-danger'>";
+                echo "<div class='container'><div class='row'>><div class='alert alert-danger'>";
                     echo "<strong>Whoops!</strong> Tenemos un problema Capitan.<br><br>";
                     echo "<ul>";
                     foreach ($errors->all() as $error){
                         echo "<li> " .$error. " </li>";
                     }
                     echo"</ul>";
-                echo "</div></div></div></div>";
+                echo "</div></div></div>";
 
             }else{
 
@@ -286,14 +286,12 @@ desired effect
         @endphp
 
         <div class="container"><div class="row">
-          <div class="col-xs-10">
             <div class="alert alert-{{$flashData[0]}} alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
                 <h4>{{$flashData[1]}}</h4>
 
               </div>
-            </div>
           </div>
         </div>
 

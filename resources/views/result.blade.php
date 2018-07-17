@@ -4,23 +4,13 @@
 @section('content')
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
 
         @foreach($query as $result)
-          <div class="panel" style="width: 78rem;">
+          <div class="panel">
           <div class="panel-body">
             <h5 class="panel-title">Cuenta: {{$result->Numero_Cuenta}}</h5>
-            <a href="#" class="panel-link">Fecha: {{$result->Fecha}}</a>
-            <span class="label label-primary">Orden: {{$result->Numero_Orden}}</span>
-            <span class="label label-primary">{{$result->SubTipo_Orden}}</span>
-            @php
-              if($result->Estado == "Completado"){
-                $label = "success";
-              } else {
-                $label = "warning";
-              }
-            @endphp
-            <span class="label label-{{$label}}">{{$result->Estado}}</span>
+            <h5>Fecha: {{$result->Fecha}}</h5>
+            <span class="label label-primary">Sub Tipo de Orden: {{$result->SubTipo_Orden}}</span>
             <p class="panel-text">Notas Entrantes: <br> {{$result->Notas_Entrantes}}</p>
             <p class="panel-text">Notas de Cierre: <br>
               @if($result->Notas_Cierre == null)
@@ -29,11 +19,14 @@
                 {{$result->Notas_Cierre}}
               @endif
                </p>
+            <p class="panel-text">Direccion: <br>
+        {{$result->Direccion}}
+            </p>
           </div>
         </div>
         @endforeach
         <br>
-        <div class="alert alert-info" role="alert" style="width: 78rem;">
+        <div class="alert alert-info" role="alert">
         @php
           if(count($query) == 1){
             echo "Se encontro un (1) solo registro.";
@@ -44,9 +37,10 @@
           }
         @endphp
         </div>
-
-      </div>
     </div>
   </div>
+</div>
+</div>
+</div>
 
 @endsection
