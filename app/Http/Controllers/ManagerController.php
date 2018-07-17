@@ -159,7 +159,7 @@ class ManagerController extends Controller
             "dataMiss4"
         );
 
-        $clearString = array("<","!","-",">");
+        $clearString = array("<","!","-",">","'");
 
         //dd($cabecera);
 
@@ -295,19 +295,24 @@ class ManagerController extends Controller
 
                     case 'Fecha':
 
-                        if($cell->getValue() == "Fecha"){
-
-                          $myCells[$cabecera[$x]] = $cell->getValue();
-
-                        }else{
-
                           /*Verificando la longitud de la fecha para determinar si es manipulada*/
 
-                          if ( strlen( $cell->getValue() ) == 8) { //longitud de cadena DD/MM/YY
+                          /*buscando el delimitador "/" */
+
+                          $delimitador = "/";
+                          $pos = strpos($cell->getValue(), $delimitador);
+
+                          if ( $pos === true) { //Determinado si existe el delimitador
+
+                            $myFecha = str_replace($clearString, "", $cell->getValue());
 
                             $myFecha = explode("/", $cell->getValue());
-
+dd($myFecha);
                             $myCells[$cabecera[$x]] = "20".$myFecha[2]."-".$myFecha[1]."-".$myFecha[0];// a fecha mysql
+
+                          } elseif ( strlen( $cell->getValue() ) == 10 ) {
+
+                            $myCells[$cabecera[$x]] = $cell->getValue();
 
                           } elseif ( strlen( $cell->getValue() ) > 10) { //longitud del valor de fecha en Excel
 
@@ -315,13 +320,15 @@ class ManagerController extends Controller
 
                             $myCells[$cabecera[$x]] = $myFecha;
 
+                          }elseif ( strlen( $cell->getValue() ) < 8 && is_numeric($cell->getValue())) {
+
+                            $myFecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($cell->getValue());
+
+                            $myCells[$cabecera[$x]] = $myFecha;
+
+                          }else{
+                            $myCells[$cabecera[$x]] = $cell->getValue();
                           }
-
-
-                          /*$myFecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($cell->getValue());
-                          $myCells[$cabecera[$x]] = $myFecha;*/
-
-                        }
 
                         break;
 
@@ -346,6 +353,7 @@ class ManagerController extends Controller
         /**
          * Validacion de numero de orden preexistente en la bd
          */
+         //dd($myRows);
 
         foreach ($myRows as $key => $value) {
 
@@ -355,8 +363,6 @@ class ManagerController extends Controller
               ['Numero_Orden','=',$value["Numero_Orden"]],
               ['Estado','=','Completado']
             ]);
-
-          //dd($validaOrden);
 
           if ($validaOrden->exists() == true) {
               $mensaje = 'warning*El archivo posee informacion ya registrada, para evitar duplicidad se aborta la operacion';
@@ -378,7 +384,7 @@ class ManagerController extends Controller
             $myRow += ['created_at' => $timer];
             $myRow += ['updated_at' => $timer];
 
-            if($myRow["Numero_Orden"] == null || $myRow["Fecha"] == "Fecha"){
+            if($myRow["Numero_Orden"] == null){
 
             }else{
 

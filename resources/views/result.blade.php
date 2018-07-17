@@ -23,10 +23,10 @@
             <span class="label label-{{$label}}">{{$result->Estado}}</span>
             <p class="panel-text">Notas Entrantes: <br> {{$result->Notas_Entrantes}}</p>
             <p class="panel-text">Notas de Cierre: <br>
-              @if($result->Habilidades_Trabajo == null)
+              @if($result->Notas_Cierre == null)
                 No existen notas de cierre
               @else
-                {{$result->Habilidades_Trabajo}}
+                {{$result->Notas_Cierre}}
               @endif
                </p>
           </div>
