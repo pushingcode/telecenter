@@ -96,6 +96,40 @@
         </div>
     </div>
   </div>
+
+				<!--
+                Form de consultas para el operador
+                -->
+
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Consulta Numero de Cliente</h3>
+                  </div>
+                  <div class="panel-body">
+
+                    <form action="/search" method="POST" class="form-horizontal">
+                    {{ csrf_field() }}
+                      <div class="form-group">
+                        <label for="n_contrato" class="col-sm-2 control-label">No. de Cliente</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="n_contrato" name="n_contrato" placeholder="Contrato">
+                          <input type="hidden" name="from" value="frontend">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button type="submit" class="btn btn-default">Consultar</button>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+
+                <!--
+                Form de consultas para el operador
+                -->
+
 </div>
 </div>
 </div>
