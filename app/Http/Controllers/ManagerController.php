@@ -302,13 +302,13 @@ class ManagerController extends Controller
                           $delimitador = "/";
                           $pos = strpos($cell->getValue(), $delimitador);
 
-                          if ( $pos === true) { //Determinado si existe el delimitador
+                          if ( $pos === true ) { //Determinado si existe el delimitador
 
-                            $myFecha = str_replace($clearString, "", $cell->getValue());
+                            $myFecha = str_replace($clearString, "", $cell->getValue()); //se limpia de caracteres que impiden crear la fecha
 
                             $myFecha = explode("/", $cell->getValue());
-dd($myFecha);
-                            $myCells[$cabecera[$x]] = "20".$myFecha[2]."-".$myFecha[1]."-".$myFecha[0];// a fecha mysql
+
+                            $myCells[$cabecera[$x]] = "20".$myFecha[2]."-".$myFecha[1]."-".$myFecha[0];// a fecha mysql YYYY-MM-DD
 
                           } elseif ( strlen( $cell->getValue() ) == 10 ) {
 
@@ -320,7 +320,7 @@ dd($myFecha);
 
                             $myCells[$cabecera[$x]] = $myFecha;
 
-                          }elseif ( strlen( $cell->getValue() ) < 8 && is_numeric($cell->getValue())) {
+                          }elseif ( strlen( $cell->getValue() ) < 8 && is_numeric($cell->getValue())) { //longitud del valor de fecha en xls - ODS
 
                             $myFecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($cell->getValue());
 
@@ -384,7 +384,7 @@ dd($myFecha);
             $myRow += ['created_at' => $timer];
             $myRow += ['updated_at' => $timer];
 
-            if($myRow["Numero_Orden"] == null){
+            if($myRow["Numero_Orden"] == null || $myRow["Fecha"] == "Fecha"){
 
             }else{
 
