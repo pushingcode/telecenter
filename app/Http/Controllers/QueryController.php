@@ -29,14 +29,11 @@ class QueryController extends Controller
     	//validando inputs
 
     	$reglas		 	= [
-    						'n_contrato' => 'required|digits|min:5|max:8'
+    						'n_contrato' => 'required'
     					  ];
 
     	$mensajes	 	= [
-    						'n_contrato.required'	=> 'info*El Numero de cliente es obligatorio.',
-    					   	'n_contrato.digits'		=> 'info*El numero de cliente no es valido',
-                            'n_contrato.min'        => 'info*El numero de cliente debe ser de al menos 5 digitos',
-                            'n_contrato.max'        => 'info*El numero de cliente no debe superar los 8 digitos'
+    						'n_contrato.required'	=> 'info*El Numero de cliente es obligatorio.'
     					  ];
 
     	$validator 		= \Validator::make($request->all(),$reglas,$mensajes);
