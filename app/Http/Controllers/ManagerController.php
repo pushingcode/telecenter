@@ -302,32 +302,44 @@ class ManagerController extends Controller
                           $delimitador = "/";
                           $pos = strpos($cell->getValue(), $delimitador);
 
-                          if ( $pos === true ) { //Determinado si existe el delimitador
+                          if ( $pos === true ) { //Determinado si existe el delimitador para fecha DD/MM/YY
 
                             $myFecha = str_replace($clearString, "", $cell->getValue()); //se limpia de caracteres que impiden crear la fecha
 
-                            $myFecha = explode("/", $cell->getValue());
+                            list($dia, $mes, $anho) = explode("/", $cell->getValue());
 
-                            $myCells[$cabecera[$x]] = "20".$myFecha[2]."-".$myFecha[1]."-".$myFecha[0];// a fecha mysql YYYY-MM-DD
+                            $anho = "20".$anho;
+
+                            $myCells[$cabecera[$x]] = Carbon\Carbon::createFromDate($anho,$mes,$dia,0,0,0); //dd($myCells,"caso1");
 
                           } elseif ( strlen( $cell->getValue() ) == 10 ) {
 
-                            $myCells[$cabecera[$x]] = $cell->getValue();
+                            $myCells[$cabecera[$x]] = $cell->getValue(); //dd($myCells,"caso2");
 
                           } elseif ( strlen( $cell->getValue() ) > 10) { //longitud del valor de fecha en Excel
 
                             $myFecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($cell->getValue());
 
-                            $myCells[$cabecera[$x]] = $myFecha;
+                            $myCells[$cabecera[$x]] = $myFecha; //dd($myCells,"caso3");
 
                           }elseif ( strlen( $cell->getValue() ) < 8 && is_numeric($cell->getValue())) { //longitud del valor de fecha en xls - ODS
 
                             $myFecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($cell->getValue());
 
-                            $myCells[$cabecera[$x]] = $myFecha;
+                            $myCells[$cabecera[$x]] = $myFecha; //dd($myCells,"caso4");
 
                           }else{
-                            $myCells[$cabecera[$x]] = $cell->getValue();
+                            if ($cell->getValue() == "Fecha") {
+                              $myCells[$cabecera[$x]] = $cell->getValue();
+                            } else {
+                              list($dia, $mes, $anho) = explode("/", $cell->getValue());
+
+                              $anho = "20".$anho;
+
+                              $myCells[$cabecera[$x]] = Carbon\Carbon::createFromDate($anho,$mes,$dia); //dd($myCells,"caso1");
+                            }
+
+                            //dd($myCells,"caso5");
                           }
 
                         break;
