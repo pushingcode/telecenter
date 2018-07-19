@@ -336,7 +336,7 @@ class ManagerController extends Controller
 
                               $anho = "20".$anho;
 
-                              $myCells[$cabecera[$x]] = Carbon\Carbon::createFromDate($anho,$mes,$dia); //dd($myCells,"caso1");
+                              $myCells[$cabecera[$x]] = Carbon\Carbon::createFromDate($anho,$mes,$dia,0,0,0); //dd($myCells,"caso1");
                             }
 
                             //dd($myCells,"caso5");
