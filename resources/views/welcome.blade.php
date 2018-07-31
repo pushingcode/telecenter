@@ -24,15 +24,6 @@
             <div class="container">
 
             <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Inicio</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                    @endauth
-                </div>
-            @endif
             @if($errors->any())
                 @php
                     $flashData = explode("*",$errors->first());
@@ -83,7 +74,7 @@
                 Form de consultas para el operador
                 -->
             </div>
-            
+
         </div>
          <!-- jQuery 3 -->
         <script src="{{asset('adminlte/bower_components/jquery/dist/jquery.min.js')}}"></script>

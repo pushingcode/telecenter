@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
 /*
 |--------------------------------------------
 | Rutas para Gestion de Sistema
@@ -36,4 +37,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/register', 'HomeController@register')->name('register');
 Route::post('/register', 'ManagerController@user_register');
 Route::get('donwload/{id}', 'ManagerController@donwload')->name('donwload');
+Route::get('/testAnalitico','ManagerController@analizar');
+Route::post('/testAnalitico','AnaliticoController@analisisPendientes')
+->name('testAnalitico');
 //Route::view('/home', 'admin.admin');

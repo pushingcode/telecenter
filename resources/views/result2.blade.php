@@ -30,22 +30,13 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <!-- Google Maps -->
-        
+
     </head>
     <body class="hold-transition skin-black sidebar-mini">
       <div class="wrapper">
       <div class="container">
 
       <div class="flex-center position-ref full-height">
-      @if (Route::has('login'))
-          <div class="top-right links">
-              @auth
-                  <a href="{{ url('/home') }}">Inicio</a>
-              @else
-                  <a href="{{ route('login') }}">Login</a>
-              @endauth
-          </div>
-      @endif
       @if($errors->any())
           @php
               $flashData = explode("*",$errors->first());
@@ -61,6 +52,39 @@
 
   <div class="container">
     <div class="row">
+
+      <!--
+      Form de consultas para el operador
+      -->
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Consulta Numero de Cliente</h3>
+        </div>
+        <div class="panel-body">
+
+          <form action="/search" method="POST" class="form-horizontal">
+          {{ csrf_field() }}
+            <div class="form-group">
+              <label for="n_contrato" class="col-sm-2 control-label">No. de Cliente</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="n_contrato" name="n_contrato" placeholder="Contrato">
+                <input type="hidden" name="from" value="frontend">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Consultar</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+      <!--
+      Form de consultas para el operador
+      -->
 
         @foreach($query as $result)
           <div class="panel">
@@ -83,52 +107,9 @@
         </div>
         @endforeach
         <br>
-        <div class="alert alert-info" role="alert">
-        @php
-          if(count($query) == 1){
-            echo "Se encontro un (1) solo registro.";
-          }else if(count($query) == 0){
-            echo "No existen registros";
-          }else{
-            echo "Se encontraron ".count($query)." registros";
-          }
-        @endphp
-        </div>
     </div>
   </div>
 
-				<!--
-                Form de consultas para el operador
-                -->
-
-                <div class="panel panel-primary">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Consulta Numero de Cliente</h3>
-                  </div>
-                  <div class="panel-body">
-
-                    <form action="/search" method="POST" class="form-horizontal">
-                    {{ csrf_field() }}
-                      <div class="form-group">
-                        <label for="n_contrato" class="col-sm-2 control-label">No. de Cliente</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="n_contrato" name="n_contrato" placeholder="Contrato">
-                          <input type="hidden" name="from" value="frontend">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                          <button type="submit" class="btn btn-default">Consultar</button>
-                        </div>
-                      </div>
-                    </form>
-
-                  </div>
-                </div>
-
-                <!--
-                Form de consultas para el operador
-                -->
 
 </div>
 </div>

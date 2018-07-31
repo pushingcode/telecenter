@@ -201,6 +201,7 @@ desired effect
           <ul class="treeview-menu">
             <li><a href="/manager/create">Carga</a></li>
             <li><a href="/manager">Descarga</a></li>
+            <li><a href="/testAnalitico">Analizar</a></li>
           </ul>
         </li>
         @endhasanyrole

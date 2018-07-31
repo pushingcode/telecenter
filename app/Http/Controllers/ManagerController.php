@@ -142,6 +142,7 @@ class ManagerController extends Controller
             "COD_Amount",
             "Notas_Entrantes",
             "Comentarios_Orden",
+            "Comentarios_Contratista",
             "Comentarios_Despacho",
             "Cancellation_Reason",
             "Notas_Cierre",
@@ -621,5 +622,12 @@ class ManagerController extends Controller
         }
 
           return Storage::download($id->manifest,'EpicaNero'.$id->created_at.'['.$id->id.'].xlsx');
+    }
+
+    public function analizar()
+    {
+        return view('upload_a')->with([
+            'header'    => "Carga de Archivo para Analizar"
+            ]);
     }
 }

@@ -15,7 +15,7 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->increments('id');
-           $table->string('Tecnico')->nullable();
+            $table->string('Tecnico')->nullable();
             $table->string('Numero_Orden')->nullable();
             $table->string('Tipo_Orden')->nullable();
             $table->string('SubTipo_Orden')->nullable();
@@ -48,6 +48,7 @@ class CreateServicesTable extends Migration
             $table->string('COD_Amount')->nullable();
             $table->text('Notas_Entrantes')->nullable();
             $table->text('Comentarios_Orden')->nullable();
+            $table->text('Comentarios_Contratista')->nullable();
             $table->text('Comentarios_Despacho')->nullable();
             $table->text('Cancellation_Reason')->nullable();
             $table->text('Notas_Cierre')->nullable();
