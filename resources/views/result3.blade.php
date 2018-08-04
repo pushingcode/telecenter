@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
 
             <div class="panel">
                 <div class="panel-header">Dashboard</div>
@@ -23,24 +23,28 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Celda</th>
+                  <th scope="col">Orden</th>
                   <th scope="col">Numero de Cuenta</th>
                   <th scope="col">SubTipo Orden Pendiente</th>
                   <th scope="col">Fecha Pendiente</th>
                   <th scope="col">Ultima Visita</th>
                   <th scope="col">SubTipo Orden Ultima Visita</th>
+                  <th scope="col">Estado Actual</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach($analisis as $registro)
-                <tr>
-                  <th scope="row">{{$registro["id"]}}</th>
-                  <td>{{$registro["Numero_Cuenta"]}}</td>
-                  <td>{{$registro["SubTipo_Orden"]}}</td>
-                  <td>{{$registro["Fecha_Pendiente"]}}</td>
-                  <td>{{$registro["Ultima_Visita"]}}</td>
-                  <td>{{$registro["SubTipo_OrdenUV"]}}</td>
-                </tr>
+
+                  <tr>
+                    <th scope="row">{{$registro["Numero_Orden"]}}</th>
+                    <td>{{$registro["Numero_Cuenta"]}}</td>
+                    <td>{{$registro["SubTipo_Orden"]}}</td>
+                    <td>{{$registro["Fecha_Pendiente"]}}</td>
+                    <td>{{$registro["Ultima_Visita"]}}</td>
+                    <td>{{$registro["SubTipo_OrdenUV"]}}</td>
+                    <td>{{$registro["EstadoUV"]}}</td>
+                  </tr>
+
                 @endforeach
               </tbody>
             </table>

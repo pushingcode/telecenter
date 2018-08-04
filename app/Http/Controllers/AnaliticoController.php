@@ -300,7 +300,7 @@ class AnaliticoController extends Controller
         * en un rango de 6 meses
         */
 
-        //$estado       = ["Cancelado","Pendiente","No Completado","Iniciado"];
+        $estado       = ["Pendiente","Iniciado"];
 
         $carbon_now   = \Carbon\Carbon::now();
         $inicio       = $carbon_now->subMonths(6)->toDateTimeString(); //se establece 6 meses por cobertura de garantia
@@ -317,24 +317,30 @@ class AnaliticoController extends Controller
 
         **/
 
-        $pendientes    = \App\Pending::all();
+        //$pendientes    = \App\Pending::whereIn("Estado", "Pendiente");
+        $pendientes    = \DB::table('pending')
+                      ->whereIn('Estado',$estado)
+                      ->get();
+
         $analisis      = array();
         foreach ($pendientes as $pendiente) {
           //dd($pendiente->Fecha);
           $PreCheck     = \DB::table('services')
-                        ->where('Numero_Cuenta','=',$pendiente->Numero_Cuenta)
-                        ->whereBetween("services.Fecha",[$inicio, $fin])
+                        ->where("Numero_Cuenta","=",$pendiente->Numero_Cuenta)
+                        ->whereBetween("Fecha", [$inicio, $fin])
                         ->get();
 
           if(count($PreCheck) >= 1){
             foreach ($PreCheck as $Check) {
               $analisis[] = [
-                'id'                => $pendiente->id,
+                'Numero_Orden'      => $pendiente->Numero_Orden,
                 'Numero_Cuenta'     => $pendiente->Numero_Cuenta,
                 'SubTipo_Orden'     => $pendiente->SubTipo_Orden,
                 'Fecha_Pendiente'   => $pendiente->Fecha,
+                'EstadoP'           => $pendiente->Estado,
                 'Ultima_Visita'     => $Check->Fecha,
                 'SubTipo_OrdenUV'   => $Check->SubTipo_Orden,
+                'EstadoUV'          => $pendiente->Estado
 
               ];
               // code...
@@ -350,7 +356,7 @@ class AnaliticoController extends Controller
 
        $filas         = count($op);
        $filas_full    = count($myRows);
-       $mensaje       = 'success*Se han analizadpo '.$filas.' registros validos de '.$filas_full.' existentes, en '. $end .' segundos';
+       $mensaje       = 'success*Se han analizado '.$filas.' registros validos de '.$filas_full.' existentes, en '. $end .' segundos';
 
        //return \Redirect::back()->withErrors($mensaje);
 
