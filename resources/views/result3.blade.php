@@ -28,6 +28,7 @@
                   <th scope="col">SubTipo Orden Pendiente</th>
                   <th scope="col">Fecha Pendiente</th>
                   <th scope="col">Ultima Visita</th>
+                  <th scope="col">Tecnico</th>
                   <th scope="col">SubTipo Orden Ultima Visita</th>
                   <th scope="col">Estado Actual</th>
                 </tr>
@@ -41,6 +42,7 @@
                     <td>{{$registro["SubTipo_Orden"]}}</td>
                     <td>{{$registro["Fecha_Pendiente"]}}</td>
                     <td>{{$registro["Ultima_Visita"]}}</td>
+                    <td>{{$registro["Tecnico"]}}</td>
                     <td>{{$registro["SubTipo_OrdenUV"]}}</td>
                     <td>{{$registro["EstadoUV"]}}</td>
                   </tr>

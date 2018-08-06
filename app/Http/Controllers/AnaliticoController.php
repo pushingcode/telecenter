@@ -339,6 +339,7 @@ class AnaliticoController extends Controller
                 'Fecha_Pendiente'   => $pendiente->Fecha,
                 'EstadoP'           => $pendiente->Estado,
                 'Ultima_Visita'     => $Check->Fecha,
+                'Tecnico'           => $Check->Tecnico,
                 'SubTipo_OrdenUV'   => $Check->SubTipo_Orden,
                 'EstadoUV'          => $pendiente->Estado
 
