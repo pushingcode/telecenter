@@ -325,33 +325,14 @@ class AnaliticoController extends Controller
         $analisis      = array();
         foreach ($pendientes as $pendiente) {
           //dd($pendiente->Fecha);
-          $PreCheck     = \DB::table('services')
+          $PreCheck[]   = \DB::table('services')
+                        ->distinct()
                         ->where("Numero_Cuenta","=",$pendiente->Numero_Cuenta)
                         ->whereBetween("Fecha", [$inicio, $fin])
-                        ->get();
-
-          if(count($PreCheck) >= 1){
-            foreach ($PreCheck as $Check) {
-              $analisis[] = [
-                'Numero_Orden'      => $pendiente->Numero_Orden,
-                'Numero_Cuenta'     => $pendiente->Numero_Cuenta,
-                'SubTipo_Orden'     => $pendiente->SubTipo_Orden,
-                'Fecha_Pendiente'   => $pendiente->Fecha,
-                'EstadoP'           => $pendiente->Estado,
-                'Ultima_Visita'     => $Check->Fecha,
-                'Tecnico'           => $Check->Tecnico,
-                'SubTipo_OrdenUV'   => $Check->SubTipo_Orden,
-                'EstadoUV'          => $pendiente->Estado
-
-              ];
-              // code...
-            }
-          }
+                        ->get(['Numero_Orden','Fecha']);
 
 
         }
-
-                      //dd($analisis);
 
        $end           = ceil((microtime(true) - $start));
 
@@ -364,7 +345,7 @@ class AnaliticoController extends Controller
        return view('result3')->with([
            'header'    => "Carga de Archivo para Analizar",
            'mensaje'   => $mensaje,
-           'analisis'  => $analisis
+           'analisis'  => $PreCheck
 
            ]);
 

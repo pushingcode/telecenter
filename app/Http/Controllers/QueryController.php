@@ -65,8 +65,10 @@ class QueryController extends Controller
 
         $inicio = $carbon_six->toDateTimeString();
         $query = \DB::table('services')
-        	->where("Numero_Cuenta", "=", $request->n_contrato)
-          ->where("Estado","=","Completado")
+          ->where([
+            ['Numero_Cuenta', $request->n_contrato],
+            ['Estado','Completado']
+          ])
         	->whereBetween("fecha",[$inicio, $time])
         	->orderBy('fecha', 'desc')
         	->get();

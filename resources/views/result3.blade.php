@@ -4,10 +4,10 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-8">
 
             <div class="panel">
-                <div class="panel-header">Dashboard</div>
+                <div class="panel-header">Analisis de Numeros de Ordenes Pendientes que estan en Rango de Garantias</div>
 
                 <div class="panel-body">
                     <form action="/testAnalitico" method="POST" enctype='multipart/form-data'>
@@ -24,28 +24,18 @@
               <thead>
                 <tr>
                   <th scope="col">Orden</th>
-                  <th scope="col">Numero de Cuenta</th>
-                  <th scope="col">SubTipo Orden Pendiente</th>
-                  <th scope="col">Fecha Pendiente</th>
-                  <th scope="col">Ultima Visita</th>
-                  <th scope="col">Tecnico</th>
-                  <th scope="col">SubTipo Orden Ultima Visita</th>
-                  <th scope="col">Estado Actual</th>
+                  <th scope="col">Nota</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach($analisis as $registro)
 
-                  <tr>
-                    <th scope="row">{{$registro["Numero_Orden"]}}</th>
-                    <td>{{$registro["Numero_Cuenta"]}}</td>
-                    <td>{{$registro["SubTipo_Orden"]}}</td>
-                    <td>{{$registro["Fecha_Pendiente"]}}</td>
-                    <td>{{$registro["Ultima_Visita"]}}</td>
-                    <td>{{$registro["Tecnico"]}}</td>
-                    <td>{{$registro["SubTipo_OrdenUV"]}}</td>
-                    <td>{{$registro["EstadoUV"]}}</td>
-                  </tr>
+                  @foreach($registro as $item)
+                    <tr>
+                      <th scope="row">{{$item->Numero_Orden}}</th>
+                      <td>Esta orden tiene VG.</td>
+                    </tr>
+                  @endforeach
 
                 @endforeach
               </tbody>

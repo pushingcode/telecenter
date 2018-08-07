@@ -10,6 +10,7 @@
           <div class="panel-body">
             <h5 class="panel-title">Cuenta: {{$result->Numero_Cuenta}}</h5>
             <h5>Fecha: {{$result->Fecha}}</h5>
+            <h5>Tecnico: {{$result->Tecnico}}</h5>
             <span class="label label-primary">Sub Tipo de Orden: {{$result->SubTipo_Orden}}</span>
             <p class="panel-text">Notas Entrantes: <br> {{$result->Notas_Entrantes}}</p>
             <p class="panel-text">Notas de Cierre: <br>
