@@ -324,18 +324,16 @@ class AnaliticoController extends Controller
 
         $analisis      = array();
         foreach ($pendientes as $pendiente) {
-          //dd($pendiente->Fecha);
+
           $PreCheck[]   = \DB::table('services')
                         ->distinct()
-                        ->where("Numero_Cuenta","=",$pendiente->Numero_Cuenta)
-                        ->whereBetween("Fecha", [$inicio, $fin])
+                        ->where('Numero_Orden','=',$pendiente->Numero_Orden)
+                        ->whereBetween('Fecha', [$inicio, $fin])
                         ->get(['Numero_Orden','Fecha']);
-
-
+                        
         }
 
        $end           = ceil((microtime(true) - $start));
-
        $filas         = count($op);
        $filas_full    = count($myRows);
        $mensaje       = 'success*Se han analizado '.$filas.' registros validos de '.$filas_full.' existentes, en '. $end .' segundos';
