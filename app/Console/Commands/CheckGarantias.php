@@ -13,7 +13,7 @@ class CheckGarantias extends Command
      *
      * @var string
      */
-    protected $signature = 'check:garantias';
+    protected $signature = 'check:garantias {--locate=}';
 
     /**
      * The console command description.
@@ -47,6 +47,7 @@ class CheckGarantias extends Command
         $fin          = Carbon\Carbon::createFromTimestamp($control)
                       ->toDateTimeString();
         $i            = 1;
+        $locate       = $this->option('locate');
 
 
         $pendientes    = \DB::table('pending')
@@ -74,7 +75,13 @@ class CheckGarantias extends Command
           foreach ($PreCheck as $check) {
 
             foreach ($check as $value) {
-              $this->info("|" . $i . "|" . $value->Numero_Orden . " | " . $value->Numero_Cuenta . " | " . $value->Fecha . " | ");
+              if ($locate == $value->Numero_Orden || $locate == $value->Numero_Cuenta) {
+                $this->info("-->|" . $i . "|" . $value->Numero_Orden . " | " . $value->Numero_Cuenta . " | " . $value->Fecha . " | ");
+              } else {
+                $this->info("|" . $i . "|" . $value->Numero_Orden . " | " . $value->Numero_Cuenta . " | " . $value->Fecha . " | ");
+              }
+
+
               $i++;
             }
 
