@@ -307,15 +307,6 @@ class AnaliticoController extends Controller
         $fin          = Carbon\Carbon::createFromTimestamp($control)
                       ->toDateTimeString();
 
-        /**
-
-        *$analisis     = \DB::table('pending')
-        *              ->join('services','pending.Numero_Cuenta','=','services.Numero_Cuenta')
-        *              ->select('pending.*')
-        *              ->whereBetween("services.Fecha",[$inicio, $fin])
-        *              ->get();
-
-        **/
 
         //$pendientes    = \App\Pending::whereIn("Estado", "Pendiente");
         $pendientes    = \DB::table('pending')
@@ -330,7 +321,7 @@ class AnaliticoController extends Controller
                         ->where('Numero_Orden','=',$pendiente->Numero_Orden)
                         ->whereBetween('Fecha', [$inicio, $fin])
                         ->get(['Numero_Orden','Fecha']);
-                        
+
         }
 
        $end           = ceil((microtime(true) - $start));
