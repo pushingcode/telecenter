@@ -62,7 +62,7 @@ class CheckGarantias extends Command
           $this->info("Se encuentran (" . $cuenta . ") registros que pudieran arrojar garantia");
 
 
-          foreach ($pendientes as $pendiente) {
+          /*foreach ($pendientes as $pendiente) {
 
             $PreCheck[]   = \DB::table('services')
                           ->distinct()
@@ -70,11 +70,20 @@ class CheckGarantias extends Command
                           ->whereBetween('Fecha', [$inicio, $fin])
                           ->get(['Numero_Orden','Numero_Cuenta','Fecha']);
 
-          }
+          }*/
 
-          foreach ($PreCheck as $check) {
+          $PreCheck = DB::select("SELECT * FROM pending
+                                WHERE (Estado='Pendiente'
+                                  OR Estado='Completado'
+                                  OR Estado='Iniciado')
+                                  AND Numero_Orden > 0
+                                  AND Numero_Cuenta
+                                  IN (SELECT DISTINCT Numero_Cuenta
+                                    FROM Services
+                                    WHERE Estado='Completado'
+                                    AND Fecha BETWEEN '".$inicio."' AND '".$fin."')");
 
-            foreach ($check as $value) {
+          foreach ($PreCheck as $value) {
               if ($locate == $value->Numero_Orden || $locate == $value->Numero_Cuenta) {
                 $this->info("-->|" . $i . "|" . $value->Numero_Orden . " | " . $value->Numero_Cuenta . " | " . $value->Fecha . " | ");
               } else {
@@ -83,8 +92,6 @@ class CheckGarantias extends Command
 
 
               $i++;
-            }
-
           }
 
         }

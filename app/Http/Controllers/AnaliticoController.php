@@ -300,7 +300,7 @@ class AnaliticoController extends Controller
         * en un rango de 6 meses
         */
 
-        $estado       = ["Pendiente","Iniciado"];
+        $estado       = ["Pendiente","Iniciado","Completado"];
 
         $carbon_now   = \Carbon\Carbon::now();
         $inicio       = $carbon_now->subMonths(6)->toDateTimeString(); //se establece 6 meses por cobertura de garantia
@@ -309,7 +309,7 @@ class AnaliticoController extends Controller
 
 
         //$pendientes    = \App\Pending::whereIn("Estado", "Pendiente");
-        $pendientes    = \DB::table('pending')
+        /*$pendientes    = \DB::table('pending')
                       ->whereIn('Estado',$estado)
                       ->get();
 
@@ -322,7 +322,19 @@ class AnaliticoController extends Controller
                         ->whereBetween('Fecha', [$inicio, $fin])
                         ->get(['Numero_Orden','Fecha']);
 
-        }
+        }*/
+        //SELECT * FROM pending WHERE (Estado="Pendiente" or Estado="Completado" or Estado="Iniciado") and Numero_Orden>0 and Numero_Cuenta in (SELECT DISTINCT Numero_Cuenta from Services where Estado="Completado" and Fecha BETWEEN '20180222' AND '20180822')
+        $PreCheck = DB::select("SELECT * FROM pending
+                              WHERE (Estado='Pendiente'
+                                OR Estado='Completado'
+                                OR Estado='Iniciado')
+                                AND Numero_Orden > 0
+                                AND Numero_Cuenta
+                                IN (SELECT DISTINCT Numero_Cuenta
+                                  FROM Services
+                                  WHERE Estado='Completado'
+                                  AND Fecha BETWEEN '".$inicio."' AND '".$fin."')");
+        //
 
        $end           = ceil((microtime(true) - $start));
        $filas         = count($op);

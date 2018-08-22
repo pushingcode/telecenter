@@ -74,12 +74,15 @@ class QueryController extends Controller
         	->get();
 
            // dd($request->n_contrato, $inicio, $time);
-        $mensaje = "success*Consulta ejecutada en un rango de " . $rango . " meses";
+        $mensaje = null;
 
         if(count($query) == 0){
         	$mensaje = "info*No existen resultados para la consulta en un rango de " . $rango . " meses";
-        	return \Redirect::back()
-        	->with(['header' => "Resultado de Consulta ". $request->n_contrato ." en un rango de " . $rango . " meses"])
+        	return view('result2')
+        	->with([
+            'header'  => "Resultado de Consulta ". $request->n_contrato ." en un rango de " . $rango . " meses",
+            'query'   => $query,
+          ])
         	->withErrors($mensaje);
         }
 
@@ -108,5 +111,13 @@ class QueryController extends Controller
         	]);
 
 
+    }
+
+    public function bySeach(){
+      $query = array();
+      return view('result2')->with([
+        'header'  => "Servico de busqueda",
+        'query'   => $query,
+      ]);
     }
 }

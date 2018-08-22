@@ -86,8 +86,8 @@
       Form de consultas para el operador
       -->
 
-        @foreach($query as $result)
-          <div class="panel">
+        @forelse ($query as $result)
+        <div class="panel">
           <div class="panel-body">
             <h5 class="panel-title">Cuenta: {{$result->Numero_Cuenta}}</h5>
             <h5>Fecha: {{$result->Fecha}}</h5>
@@ -102,11 +102,13 @@
               @endif
                </p>
             <p class="panel-text">Direccion: <br>
-				{{$result->Direccion}}
+            {{$result->Direccion}}
             </p>
           </div>
         </div>
-        @endforeach
+        @empty
+
+        @endforelse
         <br>
     </div>
   </div>
