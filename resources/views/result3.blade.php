@@ -28,15 +28,11 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($analisis as $registro)
-
-                  @foreach($registro as $item)
+                @foreach($analisis as $item)
                     <tr>
                       <th scope="row">{{$item->Numero_Orden}}</th>
                       <td>Esta orden tiene VG.</td>
                     </tr>
-                  @endforeach
-
                 @endforeach
               </tbody>
             </table>
