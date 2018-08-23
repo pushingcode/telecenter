@@ -77,10 +77,10 @@ class QueryController extends Controller
         $mensaje = null;
 
         if(count($query) == 0){
-        	$mensaje = "info*No existen resultados para la consulta en un rango de " . $rango . " meses";
+        	$mensaje = "info*No existen resultados para la consulta en un rango de " . $rango . " dias";
         	return view('result2')
         	->with([
-            'header'  => "Resultado de Consulta ". $request->n_contrato ." en un rango de " . $rango . " meses",
+            'header'  => "Resultado de Consulta ". $request->n_contrato ." en un rango de " . $rango . " dias",
             'query'   => $query,
           ])
         	->withErrors($mensaje);
