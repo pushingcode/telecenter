@@ -24,6 +24,7 @@ class AnaliticoController extends Controller
        $control = time();
        $time = Carbon\Carbon::createFromTimestamp($control)->toDateTimeString();
        $start = microtime(true);
+       $rango = env('RANGO_CONSULTA',6);
 
        /**
         * Verificando si la tabla esta vacia
@@ -303,7 +304,7 @@ class AnaliticoController extends Controller
         $estado       = ["Pendiente","Iniciado","Completado"];
 
         $carbon_now   = \Carbon\Carbon::now();
-        $inicio       = $carbon_now->subMonths(6)->toDateTimeString(); //se establece 6 meses por cobertura de garantia
+        $inicio       = $carbon_now->subDays($rango)->toDateTimeString(); //se establece 6 meses por cobertura de garantia
         $fin          = Carbon\Carbon::createFromTimestamp($control)
                       ->toDateTimeString();
 

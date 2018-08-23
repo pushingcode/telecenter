@@ -42,15 +42,6 @@
       <div class="container">
 
       <div class="flex-center position-ref full-height">
-      @if (Route::has('login'))
-          <div class="top-right links">
-              @auth
-                  <a href="{{ url('/home') }}">Inicio</a>
-              @else
-                  <a href="{{ route('login') }}">Login</a>
-              @endauth
-          </div>
-      @endif
 
 
       @if($errors->any())
@@ -65,17 +56,7 @@
           </div>
 
       @endif
-
-
- 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-
-
-      </div>
-    </div>
-  </div>
+        <a class="btn btn-primary btn-lg btn-block" href="/search" role="button">Volver a Buscar</a>
 </div>
 </div>
 </div>

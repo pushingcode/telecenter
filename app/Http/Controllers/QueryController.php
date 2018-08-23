@@ -24,7 +24,7 @@ class QueryController extends Controller
     public function byTime(Request $request)
     {
     	$user = Auth::id();
-    	$rango = 6; //cantidad de meses como rango de consulta
+    	$rango = env('RANGO_CONSULTA',6); //cantidad de meses como rango de consulta
 
     	//validando inputs
 
@@ -61,7 +61,7 @@ class QueryController extends Controller
         $start = microtime(true);
 
         $carbon_now = \Carbon\Carbon::now();
-        $carbon_six = $carbon_now->subMonths($rango); //se establece 6 meses por cobertura de garantia
+        $carbon_six = $carbon_now->subDays($rango); //se establece 6 meses por cobertura de garantia
 
         $inicio = $carbon_six->toDateTimeString();
         $query = \DB::table('services')

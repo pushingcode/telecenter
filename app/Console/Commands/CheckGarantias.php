@@ -43,7 +43,7 @@ class CheckGarantias extends Command
         $control      = time();
         $estado       = ["Pendiente","Iniciado"];
         $carbon_now   = \Carbon\Carbon::now();
-        $inicio       = $carbon_now->subMonths(6)->toDateTimeString(); //se establece 6 meses por cobertura de garantia
+        $inicio       = $carbon_now->subDays(200)->toDateTimeString(); //se establece 6 meses por cobertura de garantia
         $fin          = Carbon\Carbon::createFromTimestamp($control)
                       ->toDateTimeString();
         $i            = 1;
