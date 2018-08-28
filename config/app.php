@@ -153,6 +153,7 @@ return [
          * Package Service Providers...
          */
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Backup\BackupServiceProvider::class,
 
         /*
          * Application Service Providers...
